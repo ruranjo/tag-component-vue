@@ -1,38 +1,37 @@
-<script>
-    export default {
-        data(){
-            return {
-                currentValue: "",
-                tags:[],
-            }
-        },
-        methods:{
-            setCurrentValue(){
-                this.currentValue = "hola"
-            },
-            handleSubmit(e){
-                const exist = this.tags.some((item) => item === this.currentValue);
-                if(exist){
-                    this.deletedTag(this.currentValue);
-                }
+<script setup>
+import { ref } from 'vue';
 
-                if(this.currentValue !== ""){
-                    this.tags.push(this.currentValue);
-                    this.currentValue = "";
-                }
-           },
-           handleClick(){
-            if(this.currentValue !== ""){
-                    this.tags.push(this.currentValue);
-                    this.currentValue = "";
-            }
-           },
-           deletedTag(tag){
-            this.tags = this.tags.filter((item) => item !== tag);
-           }
+    
+    const currentValue = ref("")
+    let tags = ref([])
+        
+
+    const setCurrentValue = () => {
+            currentValue = "hola"
+    }
+
+    const handleSubmit = (e) => {
+        const exist = tags.value.some((item) => item === currentValue.value);
+        if(exist){
+            deletedTag(currentValue.value);
         }
 
+        if(currentValue.value !== ""){
+            tags.value.push(currentValue.value);
+            currentValue.value = "";
+        }
     }
+
+    const handleClick = () =>{
+        if(currentValue.value !== ""){
+                tags.value.push(currentValue.value);
+                currentValue.value = "";
+        }
+    }
+    const deletedTag = (tag) =>{
+        tags.value = tags.value.filter((item) => item !== tag);
+    }
+        
 </script>
 
 <template>
